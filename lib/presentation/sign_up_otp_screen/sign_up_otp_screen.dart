@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' hide Key;
 import 'controller/sign_up_otp_controller.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 import 'package:sayali_s_application4/core/app_export.dart';
@@ -6,10 +7,11 @@ import 'package:sayali_s_application4/widgets/custom_elevated_button.dart';
 import 'package:sayali_s_application4/widgets/custom_pin_code_text_field.dart';
 
 class SignUpOtpScreen extends GetWidget<SignUpOtpController> {
-  // const SignUpOtpScreen({Key? key}) : super(key: key) {
+  SignUpOtpScreen({Key? key}) : super(key: key) {
+    Get.put(SignUpOtpController());
+  }
 
-  //   throw UnimplementedError();
-  // }
+  static Key? newMethod(Key? key) => key;
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +37,28 @@ class SignUpOtpScreen extends GetWidget<SignUpOtpController> {
                       child: Column(children: [
                         SizedBox(height: 60.v),
                         SizedBox(
-                            width: 159.h,
-                            child: Text("lbl_enter_the_otp".tr,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: theme.textTheme.displaySmall)),
+                          width: 159.h,
+                          child: Text(
+                            "lbl_enter_the_otp".tr,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.displaySmall,
+                          ),
+                        ),
                         SizedBox(height: 27.v),
                         Padding(
                           padding: EdgeInsets.only(left: 17.h, right: 16.h),
                           child: Obx(() {
-// Add this assert statement
                             return CustomPinCodeTextField(
                               context: Get.context!,
-                              controller: controller.otpController.value,
+                              controller: Get.find<SignUpOtpController>()
+                                  .otpController
+                                  .value,
                               onChanged: (value) {},
                             );
                           }),
                         ),
-
-                        // Padding(
-                        //     padding: EdgeInsets.only(left: 17.h, right: 16.h),
-                        //     child: Obx(() => CustomPinCodeTextField(
-                        //         context: Get.context!,
-                        //         controller: controller.otpController.value,
-                        //         onChanged: (value) {}))),
                         SizedBox(height: 44.v),
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.h),
@@ -1031,5 +1030,3 @@ class SignUpOtpScreen extends GetWidget<SignUpOtpController> {
     );
   }
 }
-
-class Key {}

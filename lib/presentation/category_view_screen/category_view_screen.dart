@@ -144,4 +144,8 @@ class CategoryViewScreen extends GetWidget<CategoryViewController> {
       ),
     );
   }
+
+  void onTapNext() {
+    Get.toNamed(AppRoutes.categoryViewSortScreen);
+  }
 }

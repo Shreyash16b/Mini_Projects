@@ -148,7 +148,7 @@ class HomeSwipeUpScreen extends GetWidget<HomeSwipeUpController> {
   /// Navigates to the homeScreen when the action is triggered.
   onTapSettings() {
     Get.toNamed(
-      AppRoutes.homeScreen,
+      AppRoutes.categoryViewScreen,
     );
   }
 }

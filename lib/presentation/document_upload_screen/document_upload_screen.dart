@@ -6,14 +6,18 @@ import 'package:sayali_s_application4/widgets/custom_drop_down.dart';
 import 'package:sayali_s_application4/widgets/custom_elevated_button.dart';
 import 'package:sayali_s_application4/widgets/custom_text_form_field.dart';
 
-// ignore_for_file: must_be_immutable
 class DocumentUploadScreen extends GetWidget<DocumentUploadController> {
   DocumentUploadScreen({Key? key}) : super(key: key);
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // GlobalKey for the form
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    // Initialize the controller here
+    final DocumentUploadController controller =
+        Get.put(DocumentUploadController());
+
     return SafeArea(
         child: Scaffold(
             resizeToAvoidBottomInset: false,

@@ -1377,4 +1377,10 @@ class WelcomeOneScreen extends GetWidget<WelcomeOneController> {
       ),
     );
   }
+
+  onTapLogin() {
+    Get.toNamed(
+      AppRoutes.signUpSuccessScreen,
+    );
+  }
 }

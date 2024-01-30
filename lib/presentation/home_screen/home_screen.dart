@@ -12,6 +12,7 @@ import 'package:sayali_s_application4/widgets/app_bar/appbar_image.dart';
 import 'package:sayali_s_application4/widgets/app_bar/appbar_leading_image.dart';
 import 'package:sayali_s_application4/widgets/app_bar/appbar_subtitle.dart';
 import 'package:sayali_s_application4/widgets/app_bar/custom_app_bar.dart';
+import 'package:sayali_s_application4/widgets/custom_elevated_button.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,62 +20,73 @@ class HomeScreen extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: _buildAppBar(),
-            body: SizedBox(
-                width: SizeUtils.width,
-                child: SingleChildScrollView(
-                    padding: EdgeInsets.only(top: 15.v),
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: SizedBox(
+          width: SizeUtils.width,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(top: 15.v),
+            child: SizedBox(
+              height: 775.v,
+              width: double.maxFinite,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
                     child: SizedBox(
-                        height: 775.v,
-                        width: double.maxFinite,
-                        child:
-                            Stack(alignment: Alignment.bottomCenter, children: [
+                      height: 689.v,
+                      width: double.maxFinite,
+                      child: Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
                           Align(
-                              alignment: Alignment.topCenter,
-                              child: SizedBox(
-                                  height: 689.v,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "msg_choose_a_category".tr,
+                                  style: CustomTextStyles.bodyLargeTealA70001,
+                                ),
+                                SizedBox(height: 130.v),
+                                SizedBox(
+                                  height: 536.v,
                                   width: double.maxFinite,
                                   child: Stack(
-                                      alignment: Alignment.topCenter,
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                      "msg_choose_a_category"
-                                                          .tr,
-                                                      style: CustomTextStyles
-                                                          .bodyLargeTealA70001),
-                                                  SizedBox(height: 130.v),
-                                                  SizedBox(
-                                                      height: 536.v,
-                                                      width: double.maxFinite,
-                                                      child: Stack(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          children: [
-                                                            _buildChooseAService(),
-                                                            _buildSettings()
-                                                          ]))
-                                                ])),
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgRepeatGrid3,
-                                            height: 70.v,
-                                            width: 362.h,
-                                            alignment: Alignment.topCenter,
-                                            margin:
-                                                EdgeInsets.only(top: 213.v)),
-                                        _buildHome()
-                                      ]))),
-                          _buildUserProfile()
-                        ]))))));
+                                    alignment: Alignment.bottomCenter,
+                                    children: [
+                                      _buildChooseAService(),
+                                      _buildSettings(),
+                                      _buildNextButton(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomImageView(
+                            imagePath: ImageConstant.imgRepeatGrid3,
+                            height: 70.v,
+                            width: 362.h,
+                            alignment: Alignment.topCenter,
+                            margin: EdgeInsets.only(top: 213.v),
+                          ),
+                          _buildHome(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  _buildUserProfile(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  /// Section Widget
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
         leadingWidth: 27.h,
@@ -103,7 +115,6 @@ class HomeScreen extends GetWidget<HomeController> {
         styleType: Style.bgStyle);
   }
 
-  /// Section Widget
   Widget _buildChooseAService() {
     return Align(
         alignment: Alignment.topCenter,
@@ -114,7 +125,6 @@ class HomeScreen extends GetWidget<HomeController> {
                 style: CustomTextStyles.bodyLargePrimary18)));
   }
 
-  /// Section Widget
   Widget _buildSettings() {
     return Align(
         alignment: Alignment.bottomCenter,
@@ -165,7 +175,6 @@ class HomeScreen extends GetWidget<HomeController> {
             ])));
   }
 
-  /// Section Widget
   Widget _buildHome() {
     return Align(
         alignment: Alignment.topCenter,
@@ -188,7 +197,6 @@ class HomeScreen extends GetWidget<HomeController> {
                 }))));
   }
 
-  /// Section Widget
   Widget _buildUserProfile() {
     return Align(
         alignment: Alignment.bottomCenter,
@@ -209,15 +217,32 @@ class HomeScreen extends GetWidget<HomeController> {
                 }))));
   }
 
-  /// Navigates to the categoryViewScreen when the action is triggered.
-  onTapFortySix() {
-    Get.toNamed(AppRoutes.categoryViewScreen);
+  Widget _buildNextButton() {
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: EdgeInsets.all(10.h),
+        child: CustomElevatedButton(
+          text: "lbl_next".tr,
+          onPressed: onTapNext,
+        ),
+      ),
+    );
   }
 
-  /// Navigates to the homeSwipeUpScreen when the action is triggered.
-  onTapSettings() {
-    Get.toNamed(
-      AppRoutes.homeSwipeUpScreen,
-    );
+  void onTapSettings() {
+    // Implement the logic for onTapSettings
+    print('Settings tapped!');
+    // Add your logic here
+  }
+
+  void onTapFortySix() {
+    // Implement the logic for onTapFortySix
+    print('FortySix tapped!');
+    // Add your logic here
+  }
+
+  void onTapNext() {
+    Get.toNamed(AppRoutes.homeSwipeUpScreen);
   }
 }

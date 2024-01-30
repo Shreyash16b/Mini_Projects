@@ -7,14 +7,13 @@ import 'package:sayali_s_application4/widgets/custom_drop_down.dart';
 import 'package:sayali_s_application4/widgets/custom_elevated_button.dart';
 import 'package:sayali_s_application4/widgets/custom_text_form_field.dart';
 
-// ignore_for_file: must_be_immutable
 class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
-  InfoFormOneScreen({Key? key})
-      : super(
-          key: key,
-        );
+  InfoFormOneScreen({Key? key}) : super(key: key) {
+    // Initialize the controller here
+    Get.put(InfoFormOneController());
+  }
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          _buildDateOfBirthColumn(),
+                          _buildDateOfBirthColumn(context),
                           SizedBox(height: 23.v),
                           Padding(
                             padding: EdgeInsets.only(left: 2.h),
@@ -105,7 +104,6 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
   Widget _buildName() {
     return CustomTextFormField(
       controller: controller.nameController,
@@ -120,7 +118,6 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
   Widget _buildMaleButton() {
     return Expanded(
       child: CustomElevatedButton(
@@ -140,7 +137,6 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
   Widget _buildFemaleButton() {
     return Expanded(
       child: CustomElevatedButton(
@@ -160,8 +156,10 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
-  Widget _buildDateOfBirthColumn() {
+  Widget _buildDateOfBirthColumn(BuildContext context) {
+    DateTime selectedDate =
+        DateTime.now(); // You can set the initial date as needed
+
     return Container(
       margin: EdgeInsets.only(left: 1.h),
       padding: EdgeInsets.symmetric(
@@ -200,7 +198,7 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
                       items: controller
                           .infoFormOneModelObj.value.dropdownItemList.value,
                       onChanged: (value) {
-                        controller.onSelected(value);
+                        controller.onDateSelected(value as DateTime);
                       },
                     ),
                   ),
@@ -213,7 +211,7 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
                       items: controller
                           .infoFormOneModelObj.value.dropdownItemList1.value,
                       onChanged: (value) {
-                        controller.onSelected1(value);
+                        controller.onDateSelected(value as DateTime);
                       },
                     ),
                   ),
@@ -230,10 +228,28 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
                         vertical: 15.v,
                       ),
                       onChanged: (value) {
-                        controller.onSelected2(value);
+                        controller.onDateSelected(value as DateTime);
                       },
                     ),
                   ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: selectedDate,
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
+                    );
+
+                    if (pickedDate != null && pickedDate != selectedDate) {
+                      // Handle the selected date
+                      selectedDate = pickedDate;
+                      // You may want to update your controller with the selectedDate
+                      controller.onDateSelected(selectedDate);
+                    }
+                  },
                 ),
               ],
             ),
@@ -244,7 +260,6 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
   Widget _buildHeightCmsEditText() {
     return Expanded(
       child: Padding(
@@ -258,7 +273,6 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
   Widget _buildWeightKgEditText() {
     return Expanded(
       child: Padding(
@@ -273,7 +287,6 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
     );
   }
 
-  /// Section Widget
   Widget _buildNextButton() {
     return CustomElevatedButton(
       width: 144.h,
@@ -286,6 +299,15 @@ class InfoFormOneScreen extends GetWidget<InfoFormOneController> {
           width: 22.adaptSize,
         ),
       ),
+      onPressed: () {
+        if (_formKey.currentState?.validate() ?? false) {
+          // Perform any additional logic or validation before navigating to the next page
+
+          // Example: Navigate to the next page
+          // Replace 'NextPage' with the actual route name of your next page
+          Get.toNamed('document_upload_screen');
+        }
+      },
     );
   }
 }

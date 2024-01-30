@@ -11,68 +11,81 @@ class OnboardFinalScreen extends GetWidget<OnboardFinalController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            body: SizedBox(
-                width: double.maxFinite,
-                child: Container(
-                    height: 768.v,
-                    width: double.maxFinite,
-                    decoration: AppDecoration.fillGray,
-                    child: Stack(alignment: Alignment.topCenter, children: [
-                      Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 27.h, vertical: 61.v),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage(ImageConstant.imgGroup14),
-                                      fit: BoxFit.cover)),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                        width: 233.h,
-                                        margin: EdgeInsets.only(
-                                            left: 43.h, right: 44.h),
-                                        child: Text("msg_superb_you_are".tr,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                            style: CustomTextStyles
-                                                .displaySmall36)),
-                                    SizedBox(height: 59.v),
-                                    _buildSuperbYouAre(),
-                                    SizedBox(height: 51.v),
-                                    CustomElevatedButton(
-                                        width: 144.h,
-                                        text: "lbl_begin".tr,
-                                        rightIcon: Container(
-                                            margin: EdgeInsets.only(left: 8.h),
-                                            child: CustomImageView(
-                                                imagePath: ImageConstant
-                                                    .imgArrowrightRedA200,
-                                                height: 22.adaptSize,
-                                                width: 22.adaptSize)),
-                                        buttonTextStyle:
-                                            CustomTextStyles.titleLargeRedA200,
-                                        onPressed: () {
-                                          onTapBegin();
-                                        }),
-                                    SizedBox(height: 19.v)
-                                  ]))),
-                      CustomImageView(
-                          imagePath: ImageConstant.imgHealthELogo119x375,
-                          height: 119.v,
-                          width: 375.h,
-                          alignment: Alignment.topCenter,
-                          margin: EdgeInsets.only(top: 8.v))
-                    ])))));
+      child: Scaffold(
+        body: SizedBox(
+          width: double.maxFinite,
+          child: Container(
+            height: 768.v,
+            width: double.maxFinite,
+            decoration: AppDecoration.fillGray,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 27.h, vertical: 61.v),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImageConstant.imgGroup14),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 233.h,
+                          margin: EdgeInsets.only(left: 43.h, right: 44.h),
+                          child: Text(
+                            "msg_superb_you_are".tr,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyles.displaySmall36,
+                          ),
+                        ),
+                        SizedBox(height: 59.v),
+                        _buildSuperbYouAre(),
+                        SizedBox(height: 51.v),
+                        CustomElevatedButton(
+                          width: 144.h,
+                          text: "lbl_begin".tr,
+                          rightIcon: Container(
+                            margin: EdgeInsets.only(left: 8.h),
+                            child: CustomImageView(
+                              imagePath: ImageConstant.imgArrowrightRedA200,
+                              height: 22.adaptSize,
+                              width: 22.adaptSize,
+                            ),
+                          ),
+                          buttonTextStyle: CustomTextStyles.titleLargeRedA200,
+                          onPressed: () {
+                            onTapBegin();
+                          },
+                        ),
+                        SizedBox(height: 19.v),
+                      ],
+                    ),
+                  ),
+                ),
+                CustomImageView(
+                  imagePath: ImageConstant.imgHealthELogo119x375,
+                  height: 119.v,
+                  width: 375.h,
+                  alignment: Alignment.topCenter,
+                  margin: EdgeInsets.only(top: 8.v),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  /// Section Widget
   Widget _buildSuperbYouAre() {
     return SizedBox(
         height: 257.v,
@@ -298,6 +311,9 @@ class OnboardFinalScreen extends GetWidget<OnboardFinalController> {
           LocationPopupController(),
         ),
       ),
-    ));
+    )).then((value) {
+      // After the dialog is closed, navigate to the HomeScreen
+      Get.toNamed(AppRoutes.homeScreen);
+    });
   }
 }
